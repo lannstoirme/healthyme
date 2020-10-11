@@ -22,13 +22,13 @@ return (
     <CalendarPicker
         onDateChange={onDateChange}
         height={'250'}
-        selectedDayColor="yellow"
+        selectedDayColor='#816c61'
         todayBackgroundColor="cyan"
     />
                 
         <Text>Selected Date: { date }</Text>
         <View style={styles.container2}>
-          <Card style={styles.card}>
+          <Card>
             <Image style={styles.imageicon}
              source={require('./../fitnessicon.png')} />
            
@@ -36,7 +36,7 @@ return (
              
              <Text style={styles.text2}>Steps</Text>
           </Card>
-          <Card style={styles.card}>
+          <Card>
             <Image style={styles.imageicon}
             source={require('./../bmiicon.png')} />
            
@@ -46,7 +46,7 @@ return (
           </Card>
           </View>
         <View style={styles.container3}>
-        <Card style={styles.card}>
+        <Card>
             <Image style={styles.imageicon}
              source={require('./../bloodpressureicon.png')} />
             
@@ -54,7 +54,7 @@ return (
             
              <Text style={styles.text2}>mmHG</Text>
           </Card>
-          <Card style={styles.card}>
+          <Card>
             <Image style={styles.imageicon}
              source={require('./../oxygensatsicon.png')} />
              
@@ -64,7 +64,7 @@ return (
           </Card>
           </View>
           <View style={styles.container3}>
-        <Card style={styles.card}>
+          <Card>
             <Image style={styles.imageicon}
              source={require('./../pulseheart.png')} />
              
@@ -77,6 +77,12 @@ return (
             <Image style={styles.imageicon2}
              source={require('./../measureicon.png')} />
             </TouchableOpacity>
+        <TouchableOpacity
+            onPress={() => navigation.navigate('History')} >
+                <Image style={styles.imageicon3}
+                source={require('./../history.png')} />
+            </TouchableOpacity>
+            
 </View>  
 </View>        
 )}
@@ -91,27 +97,27 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         backgroundColor: '#2274a5',
-        marginTop: 10,
-        height: 50,
-        marginBottom: 10,
+        marginTop: 5,
+        height: 10,
+        marginBottom: 5,
       },
       container3: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         backgroundColor: '#2274a5',
-        marginTop: 10,
-        height: 50,
-        marginBottom: 10,
+        marginTop: 5,
+        height: 10,
+        marginBottom: 5,
       },
       container4: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         backgroundColor: '#2274a5',
-        marginTop: 20,
+        marginTop: 5,
         marginBottom: 10,
-        height: 50,
+        height: 5,
       },
       imageicon: {
         height: 40,
@@ -120,20 +126,15 @@ const styles = StyleSheet.create({
         marginBottom: 5,
       },
       imageicon2: {
-        height: 150,
-        width: 150,
+        height: 100,
+        width: 100,
         justifyContent: 'center',
         marginBottom: 5,
         paddingRight: 20,
       },
-      card: {
-        width: 150,
-        marginTop: 20,
-        marginBottom: 20,
-        marginLeft: 20,
-        marginRight: 20,
-        marginBottom: 10,
-        borderRadius: 20,
+      imageicon3: {
+          height: 80,
+          width: 80,
       },
     text: {
         fontSize: 20,
