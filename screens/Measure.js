@@ -1,8 +1,6 @@
 import React, { useState, useEffect, Component } from 'react';
 import { View, StyleSheet, Text, Button, ScrollView, ActivityIndicator, Card } from 'react-native';
-import newAPI from './../apis/MeasureAPI';
-
-
+import postMeasureToAPI from './PostMeasure';
 //var pulseRate = 0;
 
 //const GeneratePulseRate = ({ randomPulse, pulseRate }) =>{
@@ -17,29 +15,6 @@ import newAPI from './../apis/MeasureAPI';
 //    }
 //}
 
-//variables to post
-//date
-//time
-//pulserate
-//oxygensat
-//temperature
-//systolicpressure
-//diastolicpressure
-
-//axios({
-// method: 'post',
-// url: '/..',
-// data: '{
-//    date: {date},
-//    time: {time},
-//    pulserate: {pulserate},
-//    oxygensat: {oxygensat},
-//    temperature: {temperature},
-//    systolicpressure: {systolicpressure},
-//    diastolicpressure: {diastolicpressure},
-//}
-
-//});
 
 const steps = 10000;
 const BMI = 32;
@@ -47,15 +22,15 @@ const temperature = 37.8;
 
 const Measure = ({ navigation }) => {
 
-    const [ currentDate, setCurrentDate] = useState('');
-    const [ currentTime, setCurrentTime] = useState('');
+    const [ date, setDate] = useState('');
+    const [ time, setTime] = useState('');
     const [ pulse, setCurrentPulse] = useState('');
     const [ oxygensats, setOxygenSats] = useState('');
     const [ systolic, setSystolic] = useState('');
     const [ diastolic, setDiastolic] = useState('');
  
     useEffect(() => {
-        var date = new Date().getDate();
+        var thisdate = new Date().getDate();
         var month = new Date().getMonth() + 1;
         var year = new Date().getFullYear();
         var hours = new Date().getHours();
@@ -65,10 +40,10 @@ const Measure = ({ navigation }) => {
         var systolic = Math.floor(Math.random() * 100) + 20;
         var diastolic = Math.floor(Math.random() * 100) - 30;
            
-        setCurrentDate(
-            date + '/' + month + '/' + year
+        setDate(
+            thisdate + '/' + month + '/' + year
         );
-        setCurrentTime(
+        setTime(
             hours + ':' + min
         );
         setCurrentPulse(
@@ -87,66 +62,18 @@ const Measure = ({ navigation }) => {
             diastolic
         );
 
+
 }, []);
-
-const [measure, setMeasure] = useState([]);
-
-useEffect (() => {
-    postMeasureToAPI
-}, [])
-
-
-//function getVitalsFromAPI() {
-//    newAPI.get('vitals')
-//    .then(async function (response) {
-//        setMeasure(response.data);
-//    })
-//    .catch(function (error) {
-//        console.log(error)
-//    })
-//}
-//if (!measure) {
-//    return null
-//}
-
-const params = JSON.stringify({
-    "date": {date},
-    "time": {time},
-    "pulserate": {pulserate},
-    "oxygensat": {temperature},
-    "systolicpressure": {systolicpressure},
-    "diastolicpressure": {diastolicpressure},
-})
-
-function postMeasureToAPI() {
-    newAPI.post('vitals', params, {
-        "headers": {
-            "content-type": "application/json",
-        },
-    }).then(function(response) {
-        console.log(response);
-        setMeasure(response.data);
-    }).catch(function(error) {
-        console.log(error);
-    })
-    
-    if (!measure) {
-        return null
-    }
-};
-
-
-
 
 return (
 <ScrollView style={styles.scroll}>
 <View style={styles.container}>
     <View style={styles.container2}>
-    <Card style={styles.card}><Text style={styles.text}>The current date is: {currentDate}</Text></Card>
+    <Card style={styles.card}><Text style={styles.text}>The current date is: {date}</Text></Card>
     <ActivityIndicator size="large"/>
     </View>
     <View style={styles.container2}>
-    <Card style={styles.card}><Text style={styles.text}>The current time is: {currentTime}</Text></Card>
+    <Card style={styles.card}><Text style={styles.text}>The current time is: {time}</Text></Card>
     <ActivityIndicator size="large"/>
     </View>
     <View style={styles.container2}>
@@ -171,6 +98,9 @@ return (
     </View>
     <View style={styles.container2}>
     <Card style={styles.card}><Text style={styles.text}>Your temperature is {temperature} </Text></Card>
+    </View>
+    <View>
+        <Button onPress={postMeasureToAPI}><Text>Record These Results</Text></Button>
     </View>
 </View>
 </ScrollView>
